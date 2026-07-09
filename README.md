@@ -1,36 +1,105 @@
 README.md
-# Introduction
-Welcome to my SQL Portfolio Project, where I delve into the data job market with a focus on data analyst roles. 
-This project is a personal exploration into identifying the top-paying jobs, in-demand skills, 
-and the intersection of high demand with high salary in the field of data analytics.
+# SQL Data Analytics Portfolio
 
-Check out my SQL queries here: [project_sql folder](/SQL-Data-Analytics-Portfolio/).
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![SQL](https://img.shields.io/badge/SQL-Advanced-success)
+![Data Analytics](https://img.shields.io/badge/Data-Analytics-orange)
 
-# Background
-The motivation behind this project stemmed from my desire to understand the data analyst job market better. I aimed to discover which skills are paid the most and in demand, making my job search more targeted and effective. 
+### Data Analyst Job Market Analysis Using PostgreSQL
 
-The data for this analysis is from Luke Barousse’s SQL Course. This data includes details on job titles, salaries, locations, and required skills. 
+> An end-to-end SQL analytics project exploring salary trends, in-demand skills, and hiring patterns within the global data analyst job market.
 
-The questions I wanted to answer through my SQL queries were:
+The complete SQL queries used throughout this project are included in this repository and can be found alongside the accompanying visualizations and documentation.
 
-1. What are the top-paying data analyst jobs?
-2. What skills are required for these top-paying jobs?
-3. What skills are most in demand for data analysts?
-4. Which skills are associated with higher salaries?
-5. What are the most optimal skills to learn for a data analyst looking to maximize job market value?
+---
 
-# Tools I Used
+## Project Summary
+
+This project analyzes a large-scale dataset of data analyst job postings using SQL and PostgreSQL. The objective is to identify which skills employers value most, how those skills influence compensation, and which technologies provide the strongest return on investment for aspiring data analysts.
+
+---
+
+## Project Overview
+
+| Category | Details |
+|-----------|---------|
+| **Project Type** | SQL Data Analytics |
+| **Database** | PostgreSQL |
+| **Language** | SQL |
+| **IDE** | Visual Studio Code |
+| **Dataset** | Luke Barousse SQL Course Dataset |
+| **Analysis** | Salary Analysis, Skill Demand, Market Trends |
+| **Visualizations** | SQL + Excel |
+| **Version Control** | Git & GitHub |
+
+---
+
+## Repository Structure
+
+```text
+SQL-Data-Analytics-Portfolio
+│
+├── README.md
+├── Assets/
+│   ├── 2_top_paying_jobs_skills.png
+│   ├── 3_top_demanded_skills.png
+│   ├── 4_top_paying_skills.png
+│   ├── 5_optimal_skills.png
+│   └── 6_optimal_skills_demand_vs_salary.png
+│
+├── 1_top_paying_jobs.sql
+├── 2_top_paying_jobs_skills.sql
+├── 3_top_demanded_skills.sql
+├── 4_top_paying_skills.sql
+└── 5_optimal_skills.sql
+```
+---
+
+## Business Objective
+
+The motivation behind this project was to better understand the data analyst job market through data-driven analysis.
+
+Using SQL, I investigated salary trends, employer demand, and skill requirements to answer one central question:
+
+> **Which technical skills maximize career opportunities and earning potential for data analysts?**
+
+The dataset originates from Luke Barousse's SQL Course and contains job postings including salaries, locations, job titles, and required technical skills.
+
+---
+
+## Business Questions
+
+This project answers five practical questions:
+
+1. Which Data Analyst positions pay the highest salaries?
+2. Which technical skills are required for those positions?
+3. Which skills are most in demand?
+4. Which skills command the highest salaries?
+5. Which skills offer the best combination of salary and demand?
+
+---
+
+# Technology Stack
 In this project, I utilized a variety of tools to conduct my analysis:
 
 - **SQL** (Structured Query Language): Enabled me to interact with the database, extract insights, and answer my key questions through queries.
 - **PostgreSQL**: As the database management system, PostgreSQL allowed me to store, query, and manipulate the job posting data.
 - **Visual Studio Code:** This open-source administration and development platform helped me manage the database and execute SQL queries.
 
-# The Analysis
+---
+
+# Analysis & Findings
 Each query for this project aimed at investigating specific aspects of the data analyst job market. Here’s how I approached each question:
 
+---
+
 ### 1. Top Paying Data Analyst Jobs
+
+### Objective
 To identify the highest-paying roles, I filtered data analyst positions by average yearly salary and location, focusing on remote jobs. This query highlights the high paying opportunities in the field.
+
+### SQL Query
+
 ```sql
 SELECT
     job_id,
@@ -51,19 +120,21 @@ ORDER BY
 LIMIT 10
 ```
 
-🔎 Key Findings
+### Business Insights
 
-One outlier skews the market signal
-The $650K Data Analyst role is an extreme compensation spike, not a benchmark. It inflates the mean and shouldn’t drive salary expectations.
+- One $650K position represents an extreme outlier rather than the market average.
+- Senior Data Analyst compensation typically clusters between $180K–260K.
+- Compensation depends more on business impact than job title.
 
-Titles don’t map to pay hierarchy
-Director-level roles sit around ~$330K, well below the top IC role. In analytics, compensation aligns with scope and specialization—not job titles.
-
-Core salary band is stable and narrow
-Most roles cluster between $180K–$260K, indicating a consistent market clearing price for senior data talent across employers.
+---
 
 ### 2. Skills for Top Paying Jobs
+
+### Objective
 To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insights into what employers value for high-compensation roles.
+
+### SQL Query
+
 ```sql
 WITH top_paying_jobs AS(
     SELECT
@@ -91,21 +162,24 @@ INNER JOIN skills_dim as s ON sj.skill_id = s.skill_id
 ORDER BY 
     salary_year_avg DESC
 ```
+
 ![Top paying skills](Assets/2_top_paying_jobs_skills.png)
 
-🔎 Key Findings
+### Business Insights
 
-Core technical stack dominates demand
-SQL and Python show the highest frequency, signaling that employers continue to anchor top-paying analytics roles around foundational data engineering and programming skills.
+- SQL and Python dominate premium analytics positions.
+- Tableau and Azure frequently complement core analytical skills.
+- Specialized cloud platforms provide additional differentiation.
 
-Visualization and cloud are secondary differentiators
-Skills like Tableau and Azure appear less often but still consistently, indicating they function as value-add capabilities rather than primary hiring drivers.
-
-Specialized tools are niche, not mandatory
-Platforms such as Snowflake, Databricks, and Bitbucket surface only a few times, suggesting they enhance competitiveness but don’t define access to high-comp roles.
+---
 
 ### 3. In-Demand Skills for Data Analysts
+
+### Objective
 This query helped identify the skills most frequently requested in job postings, directing focus to areas with high demand.
+
+### SQL Query
+
 ```sql
 SELECT
     skills,
@@ -121,21 +195,24 @@ ORDER BY
     demand_count DESC
 LIMIT 5
 ```
+
 ![Most demanded skills](Assets/3_top_demanded_skills.png)
 
-🔎 Key Findings
+### Business Insights
 
-Foundational skills dominate market demand
-SQL leads by a wide margin, followed by Excel and Python—confirming that employers prioritize core data handling and analysis capabilities over advanced or niche tools.
+- SQL remains the industry's most requested technical skill.
+- Excel and Python continue to be essential hiring requirements.
+- Visualization tools have become standard business skills.
 
-Visualization skills are critical but not primary drivers
-Tableau and Power BI show strong demand, but at materially lower levels than core analytical skills, positioning them as required for communication, not entry.
-
-The market rewards breadth, not specialization
-The sharp volume drop-off after the top three indicates that stacking fundamentals delivers more market mobility than chasing tool-specific expertise.
+---
 
 ### 4. Skills Based on Salary
+
+### Objective
 Exploring the average salaries associated with different skills revealed which skills are the highest paying.
+
+### SQL Query
+
 ```sql
 SELECT
     skills,
@@ -152,21 +229,24 @@ ORDER BY
    avg_salary DESC
 LIMIT 25
 ```
+
 ![Optimal Skills](Assets/5_optimal_skills.png)
 
-🔎 Key Findings
+### Business Insights
 
-Highest salaries are tied to niche, low-supply capabilities
-SVN leads at ~$400K, with other top earners (Solidity, Couchbase, Datarobot) reflecting legacy infrastructure, blockchain, and specialized automation—skills with limited talent pools.
+- Rare technical skills command substantial salary premiums.
+- Market scarcity drives compensation more than popularity.
+- Specialized tools provide higher upside but fewer opportunities.
 
-Compensation favors rarity over popularity
-Unlike broadly demanded skills (SQL, Excel, Python), these high-paying skills don’t appear frequently in the wider market, indicating pay is driven by scarcity, not volume.
-
-Specialized tools unlock outsized upside but narrow roles
-Skills like Golang, MXNet, and Terraform command premium salaries but map to tightly defined technical tracks, signaling high reward but low transferability across job families.
+---
 
 ### 5. Most Optimal Skills to Learn
+
+### Objective
 Combining insights from demand and salary data, this query aimed to pinpoint skills that are both in high demand and have high salaries, offering a strategic focus for skill development.
+
+### SQL Query
+
 ```sql
 WITH skills_demand AS (
     SELECT
@@ -211,18 +291,33 @@ ORDER BY
     avg_salary DESC
 LIMIT 25
 ```
+
 ![Optimal Skills + Top Paying](Assets/6_optimal_skills_demand_vs_salary.png)
 
-🔎 Key Findings
+### Business Insights
 
-A small set of skills delivers the best ROI
-Python, Tableau, R, and SQL sit in the upper-right quadrant—offering both strong demand and above-market salaries, making them the most efficient upskilling targets.
+- Python, SQL, Tableau, and R provide the strongest combination of salary and demand.
+- Excel remains highly demanded but offers lower salary premiums.
+- Building strong fundamentals produces greater long-term career value than focusing exclusively on niche technologies.
 
-High demand doesn’t always equal high pay
-Excel has the highest volume but materially lower compensation, showing that ubiquity drives accessibility, not premium pricing.
+---
 
-Niche skills offer lift but limited scalability
-Power BI, SAS, and PowerPoint provide solid salaries but appear in lower demand ranges, signaling value within specific workflows—not broad market leverage.
+# Skills Demonstrated
+
+- SQL Query Design
+- PostgreSQL
+- Data Cleaning
+- Data Aggregation
+- Common Table Expressions (CTEs)
+- Complex Joins
+- Aggregate Functions
+- Business Analysis
+- Salary Analytics
+- Data Visualization
+- Git
+- GitHub
+
+---
 
 # What I Learned
 Throughout this project, I honed several key SQL techniques and skills:
@@ -230,5 +325,22 @@ Throughout this project, I honed several key SQL techniques and skills:
 - **Complex Query Construction**: Learning to build advanced SQL queries that combine multiple tables and employ functions like **`WITH`** clauses for temporary tables.
 - **Data Aggregation**: Utilizing **`GROUP BY`** and aggregate functions like **`COUNT()`** and **`AVG()`** to summarize data effectively.
 - **Analytical Thinking**: Developing the ability to translate real-world questions into actionable SQL queries that got insightful answers.
+
+---
+
+# Key Takeaways
+
+- Analyzed a large-scale relational database using PostgreSQL.
+- Answered five real-world business questions using SQL.
+- Identified the highest-paying Data Analyst positions.
+- Measured relationships between salary and technical skills.
+- Produced business-focused insights supported by data visualization.
+- Presented technical findings using professional documentation.
+
+---
+
 # Conclusion
-This project materially strengthened my SQL capabilities and delivered actionable visibility into compensation and demand dynamics within the data analyst talent market. The insights generated establish a clear roadmap for prioritizing upskilling and targeting roles with the highest return on effort. By aligning development with high-demand, high-value competencies, aspiring analysts can differentiate faster and accelerate market readiness. The work reinforces a core operating principle in analytics: sustained relevance requires continuous skill refresh and proactive alignment with emerging industry signals.
+
+This project demonstrates my ability to transform relational data into actionable business insights using SQL. Beyond writing efficient queries, the analysis emphasizes structured problem-solving, analytical thinking, and communicating findings through clear visualizations and executive-level summaries.
+
+The project reflects the workflow commonly used by data analysts when exploring labor market trends and generating decision-ready insights from structured datasets.
